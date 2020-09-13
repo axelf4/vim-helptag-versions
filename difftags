@@ -1,0 +1,34 @@
+#!/bin/sh
+# Generates an index of which Vim version introduced a help tag.
+
+if [ $# -ne 1 ]; then
+	echo 'Missing required Vim repository argument!' >&2
+	exit 1
+fi
+repo=$1
+
+# Git tags in ascending order of date
+tags=$(git -C "$repo" for-each-ref \
+	--sort committerdate \
+	--format '%(refname:short)' \
+	refs/tags)
+
+# Iterate over sliding window of tags
+tmp=$(mktemp -d)
+mkfifo --mode=0600 "$tmp/p"
+printf '\n%s' "$tags" > "$tmp/p" &
+for p in $(echo "$tags" | paste --delimiters=, "$tmp/p" -); do
+	IFS=, read -r a b << EOF
+$p
+EOF
+	# Find all help tags added with $b
+	[ "$b" ] || continue
+	# Help tags are defined by placing the name between asterisks (*tag-name*)
+	git -C "$repo" diff "${a:-4b825dc642cb6eb9a060e54bf8d69288fbee4904}" "$b" \
+		--relative=runtime/doc --diff-filter=AM \
+		--unified=0 \
+		--word-diff=porcelain --word-diff-regex='\*[^*[:space:]]+\*' \
+		| sed --quiet '/^+/s/.*\*\([^*[:space:]]\+\)\*[^*]*/\1\n/gp' \
+		| sed -e '/^$/d' -e "s/^/$b\t/"
+done \
+	| awk '!a[$2]++' # Remove duplicates
