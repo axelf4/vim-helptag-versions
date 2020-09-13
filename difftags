@@ -17,8 +17,8 @@ tags=$(git -C "$repo" for-each-ref \
 tmp=$(mktemp -d)
 mkfifo --mode=0600 "$tmp/p"
 printf '\n%s' "$tags" > "$tmp/p" &
-for p in $(echo "$tags" | paste --delimiters=, "$tmp/p" -); do
-	IFS=, read -r a b << EOF
+for p in $(echo "$tags" | paste --delimiters=: "$tmp/p" -); do
+	IFS=: read -r a b << EOF
 $p
 EOF
 	# Find all help tags added with $b
