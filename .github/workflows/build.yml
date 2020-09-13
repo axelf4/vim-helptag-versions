@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: '0 0 1 * *' # Monthly
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Clone Vim
+        run: |
+          git clone --bare https://github.com/vim/vim.git
+      - name: Build help tag version list
+        run: |
+          ./difftags ./vim.git > tag-versions
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: tag-versions
