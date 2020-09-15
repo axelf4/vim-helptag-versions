@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en-US">
+		<title>Vim help tag versions</title>
+<style>
+body {
+	color: #1d1f21;
+	padding: 0 5% 5%;
+	margin: 0 auto;
+	font: large "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+header {
+	background-color: #b5bd68;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: .8em 0;
+	font-size: xx-large;
+	font-weight: 300;
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+#input {
+	border: 0;
+	border-bottom: 1px solid black;
+	border-radius: 0;
+	text-align: center;
+	background: transparent;
+	font: inherit;
+	color: inherit;
+}
+
+#input:focus {
+	background: #1d1f2115;
+}
+
+table {
+	width: 100%;
+	padding: 0 2em;
+	border-collapse: collapse;
+	line-height: 2;
+	border: solid #1d1f21;
+	border-width: 3px 0;
+}
+
+table tr {
+	background-color: white;
+}
+
+table tr:nth-child(even) {
+	background-color: #e0e0e0;
+}
+</style>
+	</head>
+	<body>
+		<header>
+			<label>
+				What Vim version added <input type="search" id="input" autofocus>?
+			</label>
+		</header>
+
+		<table id="results"></table>
+
+		<script src="bundle.js"></script>
+	</body>
+</html>

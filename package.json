@@ -1,0 +1,22 @@
+{
+  "name": "vim-helptag-versions",
+  "version": "1.0.0",
+  "description": "Index of what Vim version introduced what help tag",
+  "repository": "git@github.com:axelf4/vim-helptag-versions.git",
+  "author": "Axel Forsman <axelsfor@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "csv-loader": "^3.0.3",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "fuzzysort": "^1.1.4"
+  }
+}
