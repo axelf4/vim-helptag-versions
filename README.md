@@ -1,6 +1,6 @@
 # vim-helptag-versions
 
-![check](https://github.com/axelf4/vim-helptag-versions/workflows/check/badge.svg)
+![build](https://github.com/axelf4/vim-helptag-versions/workflows/build/badge.svg)
 
 Index of what Vim version introduced each help tag.
 
